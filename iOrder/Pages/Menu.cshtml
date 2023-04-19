@@ -1,0 +1,58 @@
+﻿@page
+@model iOrder.Pages.Restaurants.HomeModel
+@{
+    ViewData["title"] = "menu";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .left {
+            float: left;
+        }
+
+        .right {
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <!-- this should read in the selected restaurants title as well as a short description -->
+    <header>
+        <h1>Restaurants name here</h1>
+        <p>here is where the description for the restaurant will go.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+    </header>
+    <!--Here is the actual body of the page-->
+    <container class="container">
+        <container class="left">
+            <div class="row">
+                <!--This is the left side of the page; this block will present a list of menus from the DB based on restaurant-->
+                <div style="height:400px; width:600px; overflow:auto" class="col">
+
+
+
+                    @foreach (var item in Model.Restaurant)
+                    {
+
+                        <img src=@item.Image alt="@item.Name image" class="card-img-top" style="justify-content:center; height: 200px; width: 100%; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name</h5>
+                            <a asp-page="/Restaurants/Details" asp-route-id="@item.RestaurantId" class="btn btn-primary">View @item.Name's Page!</a>
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+        </container>
+
+        <!--Just a map showing the location of the selected restaurant-->
+        <container class="right">
+            <div id="map-container-google-1" class="col row">
+                <iframe style="height:400px;width:600px" src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" allowfullscreen></iframe>
+            </div>
+        </container>
+    </container>
+
+</body>
+</html>

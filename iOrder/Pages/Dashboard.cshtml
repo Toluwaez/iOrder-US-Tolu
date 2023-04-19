@@ -1,0 +1,82 @@
+﻿@page
+@model iOrder.Pages.DashboardModel
+@using System.Security.Claims
+@using iOrder.Models
+@inject IOrderDbContext context
+
+@{
+    var claimsUsername = User.FindFirst(ClaimTypes.Name);
+    var username = claimsUsername?.Value;
+    ViewData["Title"] = "Welcome | " + username;
+}
+
+@{ var application = new Application(); }
+
+<div class="container">
+    <h1>Welcome @username</h1>
+    <div class="SignNwU">
+        <h3>Apply to be a Restaurant Owner?</h3>
+        <button class="button" id="apply-button">
+            Click Here!
+        </button>
+    </div>
+    <div class= "userList">
+        <h5>Update your Information</h5>
+       <form id="update-form" method="post">
+            <h5>Phone-number:</h5>
+            <input type="text" name="phone-number" required>
+
+            <h5>Name:</h5>
+            <input type="text" name="Address" required>
+
+            <h5>Email:</h5>
+            <input type="text" name="Email" required>
+
+            <button class "btn" type="submit">Update</button>
+        </form>
+    </div>
+</div>
+<h3>Application Status:</h3>
+        @if (application.IsAccepted)
+        {
+            <p>Your application has been accepted.</p>
+           // <!-- Implement functionality to create a user object with the customer's information -->
+        }
+         else
+        {
+            <form id="accept-form" method="post">
+                <input type="hidden" name="accepted" value="true">
+                <button class="btn" type="submit">Accept</button>
+            </form>
+            <form id="decline-form" method="post">
+                <input type="hidden" name="accepted" value="false">
+                <button class="btn" type="submit">Decline</button>
+            </form>
+        }
+       
+<script>
+    const button = document.getElementById("apply-button");
+    button.addEventListener("click", () => {
+        button.innerHTML = "We have received your request";
+    
+    });
+</script>
+
+<style>
+    .container{
+        text-align: center;
+    }
+    .button{
+        background-color: #0000ff;
+    }
+
+    .userList {
+    float: left;
+    margin-right: 20px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+}
+    
+</style>

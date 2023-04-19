@@ -1,0 +1,27 @@
+﻿@page
+@model iOrder.Pages.Menus.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    <a asp-page="Create">Create New Menu</a>
+</p>
+
+<div class="row">
+    @foreach (var item in Model.Menu)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name) menu for @item.Restaurant.Name</h5>
+                    <a asp-page="./Edit" asp-route-id="@item.MenuId" class="btn btn-primary">Edit</a>
+                    <a asp-page="./Details" asp-route-id="@item.MenuId" class="btn btn-secondary">Details</a>
+                    <a asp-page="./Delete" asp-route-id="@item.MenuId" class="btn btn-danger">Delete</a>
+                    <a asp-page="../Items/Create" asp-route-MenuID="@item.MenuId" asp-route-RestaurantID="@item.Restaurant.RestaurantId" class="btn btn-warning">Add Item</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

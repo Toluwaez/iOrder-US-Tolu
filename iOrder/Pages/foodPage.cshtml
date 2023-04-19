@@ -1,0 +1,210 @@
+﻿@page
+@model iOrder.Pages.foodPageModel
+@{
+    <h1>@ViewData["Title"]</h1>
+}
+<script type="text/javascript">
+    function validateInput(){
+        var isValid =true;
+        var resturantName = document.getElementById("inputResturantName")
+        //var resturantName = document.getElementById("inputResturantName")
+        if (resturantName.value =="t"){
+            isvalid =false;
+            document.getElementById("resturantNameError").innerHTML ="This field is required";
+        }
+        //if (resturantName.value == "") {
+//isvalid = false;
+            //document.getElementById("resturantError"), innerHTML = "This field is required";
+                    //}
+       
+        return isValid;
+    }            
+</script>
+    <header class=" header">
+        <div class=" found-rest">
+            <h3> Found # Restaurants Matching: items here!</h3>
+        </div>
+        <div class="search-btn"> 
+            <form action=" " class=" search">
+                <input type ="search" placeholder="SearchFood" class="Search-bar" />
+                @*<button class="btn">Search</button>*@
+            <label for="membership">Search</label>
+            <select name="restdrop" id="#">
+                <option value="restuatrant1">Rest1</option>
+                <option value="restuatrant2">Rest2</option>
+                <option value="restuatrant3" selected>Rest3</option>
+                <option value="restuatrant4">Rest4</option>
+            </select>
+            </form>
+                <p class=" Location"> Based on: Location here.</p>
+         </div>
+         @*<div class="Line"></div>*@
+    <div class="dash"></div>
+         
+    </header>
+    <body>
+       
+    <!--Business List -->
+    <div class=" ItemsCont">
+         @foreach (var item in Model.Restaurant)
+     {
+        <div class=" GridItem">
+            <!--Restaurant image-->
+
+            <img class="imgctn" src=@item.Image alt="@item.Name image" width="200" height="200">
+
+            <!--Restaurant infromation-->
+            <div class="infoCtn">
+                <div class=" col-sm-3">
+
+                    <div class="row">
+                        <!--Price-->
+                        <div class="col-sm-12">
+                            Price:
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--Rating-->
+                        <div class="col-sm-12">
+                            Rating:
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--Distance-->
+                        <div class="col-sm-12">
+                            Distances:
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--PhoneNumber-->
+                        <div class="col-sm-12">
+                                PhoneNumber:@Html.DisplayFor(modelItem => item.PhoneNumber)
+                        </div>
+                    </div>
+
+                </div>
+
+                <button class="button" id="#">Shop name here</button>
+            </div>
+        </div>
+    
+        <div class=" GridItem">
+            <!--Restaurant image-->
+
+                <img class="imgctn" src=@item.Image alt="@item.Name image" width="200" height="200">
+
+            <!--Restaurant infromation-->
+            <div class="infoCtn">
+                <div class=" col-sm-3">
+
+                    <div class="row">
+                        <!--Price-->
+                        <div class="col-sm-12">
+                            Price:
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--Rating-->
+                        <div class="col-sm-12">
+                            Rating: 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--Distance-->
+                        <div class="col-sm-12">
+                            Distance:
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--PhoneNumber-->
+                        <div class="col-sm-12">
+                            PhoneNumber:@Html.DisplayFor(modelItem => item.PhoneNumber)
+                        </div>
+                    </div>
+
+                </div>
+
+                <button class="button" id="#">Shop name here</button>
+            </div>
+        </div>
+}
+    </div>
+    
+    
+</body>
+
+
+
+<style>
+    .header{
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-evenly;  
+    }
+
+    /*search-btn{*/
+        /*display:flex;*/
+        /*background-color:cornflowerblue;*/
+        /*padding:3rem 1.2rem;*/
+        /*width:20px;*/
+        /*height:7px;*/
+
+    /*}*/
+
+    .dash {
+        position: absolute;
+    }
+
+       .dash::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: black;
+            margin-top: .5rem;
+        }
+
+        .imgctn{
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        position:relative;
+        }
+
+    .ItemsCont {
+        display: grid;
+        grid-template-columns:repeat(2,1fr);
+        gap:2rem 1rem;
+    }
+
+    .GridItem{
+        display: flex;
+        background-color: #d8d8d8;
+        padding:.5rem 1.2rem;
+        width:100%;
+        height: 100%;
+        border-radius:1rem;
+        column-gap:1rem;
+
+    }
+
+    .infoCtn{
+        display:block;
+        margin-left: .5rem;
+    }
+
+    .button{
+        background-color: red;
+        padding: .5rem;
+        color: white;
+        display: block;
+        border-radius: .5rem;
+        border: none;
+        margin-top: 1rem;
+    }
+
+    
+
+    
+</style>

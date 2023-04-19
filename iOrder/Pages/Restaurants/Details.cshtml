@@ -1,0 +1,113 @@
+﻿@page
+@model iOrder.Pages.Restaurants.DetailsModel
+
+@{
+    ViewData["Title"] = "Details - " + Model.Restaurant.Name;
+}
+<header>
+    <style>
+        .left{
+            float: left;
+            height: 400px;
+            width: 400px;
+            flex: auto;
+        }
+        
+    </style>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <img src="@Model.Restaurant.Image" class="card-img-top" alt="@Model.Restaurant.Name image">
+                <div class="card-body">
+                    <h3 class="card-title">@Model.Restaurant.Name</h3>
+                    <p class="card-text">@Model.Restaurant.Address</p>
+                    <p class="card-text">@Model.Restaurant.PhoneNumber</p>
+                    <p class="card-text">@Model.Restaurant.Email</p>
+                    <p class="card-text">@Model.Restaurant.Schedule</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Map</h5>
+                    <div id="map" style="height: 300px;"></div>
+                </div>
+            </div>
+            <div class="res-desc">
+                <h2>About us</h2>
+                <p>Lorem ipsum</p>
+            </div>
+            <hr />
+
+            @foreach (var menu in Model.Menus)
+            {
+                var menuItems = Model.MenuItems.Where(m => m.MenuId == menu.MenuId);
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@menu.Name</h5>
+                        <p class="card-text">Total Items: @menuItems.Count()</p>
+                        <button class="btn btn-primary" onclick="toggleCollapse('menuItems-@menu.MenuId')">View Menu</button>
+                        <div class="collapse" id="menuItems-@menu.MenuId" style="display:none">
+                            @foreach (var menuitem in menuItems)
+                            {
+                                @foreach (var item in Model.Items)
+                                {
+                                    @if (menuitem.ItemId == item.ItemId)
+                                    {
+                                        <div class="card-body">
+                                            <h5 class="card-title"><u>@item.Name</u></h5>
+                                            <p class="card-text">Price: $@item.Price</p>
+                                            <p class="card-text">Available: @(item.Available ? "Yes" : "No")</p>
+                                            <a asp-page="../Items/Details" asp-route-id="@item.ItemId" class="btn btn-primary">View @item.Name</a>
+                                        </div>
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+<div class="container mt-4">
+    <a asp-page="./Edit" asp-route-id="@Model.Restaurant?.RestaurantId" class="btn btn-primary">Edit</a>
+    <a asp-page="./Home" class="btn btn-secondary">Back to List</a>
+    <a asp-page="../Menus/Create" asp-route-RestaurantID="@Model.Restaurant?.RestaurantId">Add a Menu</a>
+</div>
+@*<script>
+    function initMap() {
+        // Set restaurant location
+        var restaurantLocation = { lat: @Model.Restaurant.Latitude, lng: @Model.Restaurant.Longitude };
+
+        // Create map centered on restaurant location
+        var map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 16,
+            center: restaurantLocation,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+
+        // Add marker for restaurant location
+        var marker = new google.maps.Marker({
+            position: restaurantLocation,
+            map: map,
+            title: "@Model.Restaurant.Name"
+        });
+    }*@
+@*</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer>
+</script>*@
+<script>
+    function toggleCollapse(collapseId) {
+        var element = document.getElementById(collapseId);
+        if (element.style.display === "none") {
+            element.style.display = "block";
+        } else {
+            element.style.display = "none";
+        }
+    }
+</script>

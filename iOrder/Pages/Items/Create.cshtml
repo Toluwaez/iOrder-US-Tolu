@@ -1,0 +1,108 @@
+﻿@page
+@model iOrder.Pages.Items.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="text-center">
+    <h1>Create an Item for your Menu!</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @if (Convert.ToBoolean(@ViewData["PREFAB"]))
+                { // meaning we have some data in the URL
+                    <div class="form-group">
+                        <label asp-for="Restaurant" class="control-label">Adding Item to </label>
+                        <option value="@Model.Restaurants.First().Value" selected>@Model.Restaurants.First().Text</option>
+                        <span asp-validation-for="Restaurant" class="text-danger"></span>
+                    </div>
+                    <input type="hidden" name="MenuID" value="@Model.MenuID" />
+                    <div class="form-group">
+                        <label asp-for="Menu" class="control-label">Menu</label>
+                        <option value="@Model.Menus.First().Value" selected>@Model.Menus.First().Text</option>
+                        <span asp-validation-for="Menu" class="text-danger"></span>
+                    </div>
+                } else
+                {
+                    <div class="form-group">
+                        <label asp-for="Restaurant" class="control-label">Select a Restaurant</label>
+                        <select asp-for="Restaurant" class="form-control" asp-items='@Model.Restaurants' name="Item.RestaurantId" onchange="updateMenus(this.value)">
+                            <option value="">-- Select a Restaurant --</option>
+                        </select>
+                        <span asp-validation-for="Restaurant" class="text-danger"></span>
+                    </div>
+                    <input type="hidden" name="MenuID" value="@Model.MenuID" />
+                    <div class="form-group">
+                        <label asp-for="Menu" class="control-label">Menu</label>
+                        <select asp-for="Menu" class="form-control" asp-items='@Model.Menus' name="MenuItem.MenuId" onchange="updateMenuID()">
+                            <option value="">-- Select a Menu --</option>
+                        </select>
+                        <span asp-validation-for="Menu" class="text-danger"></span>
+                    </div>
+                }
+                <div class="form-group">
+                    <label asp-for="Item.Name" class="control-label"></label>
+                    <input asp-for="Item.Name" class="form-control" />
+                    <span asp-validation-for="Item.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Item.Price" class="control-label"></label>
+                    <input asp-for="Item.Price" class="form-control" />
+                    <span asp-validation-for="Item.Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Item.Image" class="control-label"></label>
+                    <input asp-for="Item.Image" class="form-control" />
+                    <span asp-validation-for="Item.Image" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="Item.Available" /> @Html.DisplayNameFor(model => model.Item.Available)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <a asp-page="Index">Back to List</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    @if (Convert.ToBoolean(@ViewData["PREFAB"]))
+    {
+        <script>
+
+            function updateMenus(restaurantId) {
+                $.ajax({
+                    type: "GET",
+                    url: "/Items/Create?handler=Menus",
+                    data: { restaurantId: restaurantId },
+                    success: function (data) {
+                    $("#Menu").empty();
+                    $.each(data, function (index, menu) {
+                    $("#Menu").append('<option value="' + menu.value + '">' + menu.text + '</option>');
+                    });
+
+                    // Set the MenuID property to the selected menu ID
+                    updateMenuID();
+                    }
+                });
+            }
+        </script>
+    }
+    <script>
+        function updateMenuID() {
+            var selectedMenuId = $("#Menu").val();
+            $("input[name='MenuID']").val(selectedMenuId);
+            }
+    </script>
+}

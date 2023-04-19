@@ -1,0 +1,119 @@
+﻿@page
+@model iOrder.Pages.Users.SignUpModel
+@{
+    ViewData["Title"] = "SignUp";
+}
+
+<html>
+<head>
+    <title> Sign Up Page </title>
+</head>
+<body>
+    <div class="signup-page">
+        <div class="form">
+            <div class="signup">
+                <div class="signup-header">
+                    <h3>SIGN UP</h3>
+                    <p>Please fill out the form to create an account.</p>
+                </div>
+            </div>
+            <form class="signup-form" method="post" asp-page-handler="OnPostAsync">
+                <input type="text" placeholder="UserName" name="username" required minlength="1" />
+                <input type="text" placeholder="First Name" name="first_name" required minlength="1" />
+                <input type="text" placeholder="Last Name" name="last_name" required minlength="1" />
+                <input type="email" placeholder="Email" name="email" required />
+                <input type="password" placeholder="Password" name="password" required minlength="8" />
+                <input type="password" placeholder="Confirm Password" name="confirm_password" required minlength="8" />
+                <button type="submit">Sign Up</button>
+                <p class="message">Already have an account? <a href="LoginPage">Log in</a></p>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+<style>
+
+    /* Body */
+    body {
+        background-color: #FFFFFF;
+    }
+
+    /* Sign Up Page */
+    .signup-page {
+        width: 360px;
+        padding: 8% 0 0;
+        margin: auto;
+    }
+
+    /* Form */
+    .form {
+        position: relative;
+        z-index: 1;
+        background: #FFFFFF;
+        background-color: #FFFFFF;
+        max-width: 360px;
+        margin: 0 auto 100px;
+        padding: 45px;
+        text-align: center;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Signup Header */
+    .signup-header h3 {
+        color: #000000;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+    .signup-header p {
+        color: #000000;
+        font-size: 14px;
+        font-weight: normal;
+        margin-bottom: 0;
+    }
+
+    /* Input Fields */
+    .signup-form input[type="text"],
+    .signup-form input[type="email"],
+    .signup-form input[type="password"] {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        color: #333333;
+        margin-bottom: 15px;
+        padding: 15px;
+        width: 100%;
+        border: none;
+        border-radius: 5px;
+        background-color: #f2f2f2;
+    }
+
+        .signup-form input[type="text"]:focus,
+        .signup-form input[type="email"]:focus,
+        .signup-form input[type="password"]:focus {
+            outline: none;
+            background-color: #e2e2e2;
+        }
+
+    /* Signup Button */
+    .signup-form button {
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #000000;
+        background-color: #FFFFFF;
+        border: none;
+        border-radius: 5px;
+        padding: 15px;
+        width: 100%; 
+        margin-top: 10px;
+        transition: background-color 0.2s ease;
+    }
+
+    .signup-form button:hover {
+        color: white;
+        background-color: #0000ff;
+        cursor: pointer;
+    }
+</style>

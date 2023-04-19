@@ -1,0 +1,43 @@
+﻿@page
+@model iOrder.Pages.Restaurants.SearchModel
+
+@{
+    ViewData["Title"] = "Search";
+}
+<div class="text-center" style="background-color: #F5F5F5;">
+    <div class="container py-2">
+        <h1>All possible <u>@ViewData["Filter"]</u> matches for "@ViewData["Keyword"]"</h1>
+
+        @{
+            if (Model.Restaurant.Count != 0)
+            {
+                <div class="row row-cols-2 row-cols-md-4 g-4">
+                    @foreach (var item in Model.Restaurant)
+                    {
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src=@item.Image alt="@item.Name image" class="card-img-top" style="height: 200px; width: 100%; object-fit: cover;">
+                                <div class="card-body">
+                                    <h5 class="card-title">@item.Name</h5>
+                                    <p class="card-text">@item.PhoneNumber</p>
+                                    <p class="card-text">@item.Address</p>
+                                    <a asp-page="/Restaurants/Details" asp-route-id="@item.RestaurantId" class="btn btn-primary">View @item.Name's Page!</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <h2>No matches found!</h2>
+            }
+        } 
+
+        
+
+        <div>
+            <a asp-page="/Index">Back to List</a>
+        </div>
+    </div>
+</div>

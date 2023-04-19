@@ -1,0 +1,67 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center" style="background-color: #F5F5F5;">
+    <div class="container py-2">
+        <h1 class="display-4">Welcome to iOrder!</h1>
+        <h2>Where we bring your <i>favorite</i> restaurants to your pocket!</h2>
+        <hr />
+        <form method="post">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="StatusTypes" class="form-label">Search by Category</label>
+                    <div class="input-group">
+                        @Html.DropDownListFor(m => m.Filter, Model.statusdropdownlistdata, "Select a category", new { @class = "form-select" })
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="Keyword" class="form-label">Keyword</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" asp-for="Keyword" required minlength="1" />
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <h3 class="mt-5">Here are some of our favorites for today</h3>
+
+    <div id="restaurant-carousel" class="carousel slide" data-bs-ride="carousel">
+        <ol class="carousel-indicators">
+            @for (int i = 0; i < Model.Restaurant.Count; i++)
+            {
+                <li data-bs-target="#restaurant-carousel" data-bs-slide-to="@i" class="@((i == 0) ? "active" : "")"></li>
+            }
+        </ol>
+
+        <div class="carousel-inner">
+            @foreach (var item in Model.Restaurant)
+            {
+                <div class="carousel-item @((item == Model.Restaurant.First()) ? "active" : "")">
+                    <img class="d-block w-100" style="object-fit: cover; height: 500px; width: 800px;" src="@item.Image" alt="@item.Name image">
+                    <div class="carousel-caption">
+                        <h5>@item.Name</h5>
+                        <p>@item.PhoneNumber</p>
+                        <p>@item.Address</p>
+                        <a asp-page="/Restaurants/Details" asp-route-id="@item.RestaurantId" class="btn btn-primary">View @item.Name's Page!</a>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#restaurant-carousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#restaurant-carousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <p class="mt-5"><a class="nav-link" asp-area="" asp-page="/Restaurants/Home">View All Restaurants</a></p>
+</div>

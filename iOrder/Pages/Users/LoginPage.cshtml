@@ -1,0 +1,130 @@
+﻿@page
+@model iOrder.Pages.Users.LoginPageModel
+@{
+   ViewData["Title"] = "LoginPage";
+}
+
+<html>
+<head>
+    <title> Login Page </title>
+</head>
+<body>
+        <div class="login-page">
+            <div class="form">
+                <div class="login">
+                    <div class="login-header">
+                        <h3>LOGIN</h3>
+                        <p>Please enter your credentials to login.</p>
+                    </div>
+                </div>
+                <form class="login-form" method ="post">
+                    <input type="text" asp-for= "Username" placeholder = "username" required minlength="1" />
+                <input type="password" asp-for="Password" placeholder="password" required minlength ="8"/>
+                    <button type ="submit">login</button>
+                    <p class="message">Not registered? <a href="SignUp">Create an account</a></p>
+                </form>
+            </div>
+        </div> 
+</body>
+</html>
+
+<style>
+
+/* Body */
+body {
+    background-color: #FFFFFF;
+}
+
+/* Login Page */
+.login-page {
+    width: 360px;
+    padding: 8% 0 0;
+    margin: auto;
+}
+
+/* Form */
+.form {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    background-color:0000ff;
+    max-width: 360px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Login Header */
+.login-header h3 {
+    color: #000000;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.login-header p {
+    color: #000000;
+    font-size: 14px;
+    font-weight: normal;
+    margin-bottom: 0;
+}
+
+/* Input Fields */
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333333;
+    margin-bottom: 15px;
+    padding: 15px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+}
+
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus {
+    outline: none;
+    background-color: #e2e2e2;
+}
+
+/* Login Button */
+.login-form button {
+   
+   
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #000000;
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 15px;
+    width: 100%;
+    margin-top: 10px;
+    transition: background-color 0.2s ease;
+}
+
+.login-form button:hover {
+    color: white;
+    background-color: #0000ff;
+    cursor: pointer;
+}
+
+/* Message */
+.login-form .message {
+    color: #000000;
+    font-size: 12px;
+}
+
+.login-form .message a {
+    color: #0000ff;
+    text-decoration: none;
+}
+
+.login-form .message a:hover {
+    text-decoration: underline;
+}
+</style>

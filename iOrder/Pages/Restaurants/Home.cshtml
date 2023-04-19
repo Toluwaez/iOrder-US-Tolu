@@ -1,0 +1,32 @@
+﻿@page
+@model iOrder.Pages.Restaurants.HomeModel
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<h1>Welcome! Enjoy our largest list of Restaurants to-date!</h1>
+
+<div class="text-center" style="background-color: #F5F5F5;">
+    <div class="container py-2">
+
+        <div class="row row-cols-2 row-cols-md-4 g-4">
+            @foreach (var item in Model.Restaurant)
+            {
+                <div class="col">
+                    <div class="card h-100">
+                        <img src=@item.Image alt="@item.Name image" class="card-img-top" style="height: 200px; width: 100%; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name</h5>
+                            <a asp-page="/Restaurants/Details" asp-route-id="@item.RestaurantId" class="btn btn-primary">View @item.Name's Page!</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div>
+            <a asp-page="/Index">Back to List</a>
+        </div>
+    </div>
+</div>

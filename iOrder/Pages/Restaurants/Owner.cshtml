@@ -1,0 +1,56 @@
+﻿@page
+@model iOrder.Pages.Restaurants.OwnerModel
+<!-- only viewable by admin-->
+@{
+    ViewData["Title"] = "Owner";
+}
+
+<h1>Restaurant Owner(s)</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Owners[0].UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Owners[0].FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Owners[0].LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Owners[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Owners[0].RestaurantId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Owners)
+        {
+        <tr>
+            <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.RestaurantId)
+             </td>
+            <td>
+                <a asp-page="./Details" asp-route-id="@item.RestaurantId">Details</a>
+            </td>
+        </tr>    
+        }
+    </tbody>
+</table>

@@ -1,0 +1,46 @@
+﻿@page
+@model iOrder.Pages.Menus.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="text-center">
+    <h4>Create a Menu for your Business!</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md justify-content-center">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @if (Convert.ToBoolean(@ViewData["PREFAB"]))
+                { // meaning we have some data in the URL
+                    <div class="form-group">
+                        <label asp-for="RestaurantID" class="control-label">Creating Menu for</label>
+                        <option value="@Model.Restaurants.First().Value" selected>@Model.Restaurants.First().Text</option>
+                    </div>
+                } else
+                {
+                    <div class="form-group">
+                        <label asp-for="Menu.RestaurantId" class="control-label">Select a Restaurant</label>
+                        <select asp-for="Menu.RestaurantId" class="form-control" asp-items='@Model.Restaurants' name="Menu.RestaurantId">
+                            <option value="">-- Select a Restaurant --</option>
+                        </select>
+                        <span asp-validation-for="Menu.RestaurantId" class="text-danger"></span>
+                    </div>
+                }
+                
+                <div class="form-group">
+                    <label asp-for="Menu.Name" class="control-label"></label>
+                    <input asp-for="Menu.Name" class="form-control" />
+                    <span asp-validation-for="Menu.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-page="Index">Back to List</a>
+    </div>
+</div>

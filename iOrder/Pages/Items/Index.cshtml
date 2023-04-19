@@ -1,0 +1,29 @@
+﻿@page
+@model iOrder.Pages.Items.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    <a asp-page="Create">Create New Item</a>
+</p>
+
+<div class="row">
+    @foreach (var item in Model.Item)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="@item.Image" class="card-img-top" alt="@item.Name">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                    <p class="card-text">Price: @Html.DisplayFor(modelItem => item.Price)</p>
+                    <p class="card-text">Availability: @Html.DisplayFor(modelItem => item.Available)</p>
+                    <a href="@Url.Page("./Edit", new { id = item.ItemId })" class="btn btn-primary">Edit</a>
+                    <a href="@Url.Page("./Details", new { id = item.ItemId })" class="btn btn-secondary">Details</a>
+                    <a href="@Url.Page("./Delete", new { id = item.ItemId })" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
